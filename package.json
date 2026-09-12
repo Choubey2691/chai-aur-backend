@@ -1,0 +1,16 @@
+{
+  "name": "chai-aur-bakend",
+  "version": "1.0.0",
+  "description": "A Backend seried by chai aur code youtube channel ",
+  "keywords": [
+    "javascript",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "Ashish chaturvedi",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
