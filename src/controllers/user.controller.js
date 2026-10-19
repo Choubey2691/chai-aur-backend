@@ -2,7 +2,7 @@ import {asyncHandler} from '../utils/asyncHandler.js';
 import {ApiError} from '../utils/ApiError.js';
 import {User} from '../models/user.model.js';
 import {uploadToCloudinary} from '../utils/cloudinary.js';
-import {apiResponse} from '../utils/Apiresponse.js';
+import {ApiResponse} from '../utils/Apiresponse.js';
 
 const registerUser = asyncHandler(async (req, res) => {
   //get user data from frontend
@@ -24,7 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required", 400);
  }
 
- const existedUser = User.findOne({
+ const existedUser = await User.findOne({
     $or: [{username}, {email}]
  })
  if(existedUser) {
@@ -38,14 +38,14 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar image is required", 400);
  }
  const avatar = await uploadToCloudinary(avatarLocalPath);
- const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+ const coverImage = await uploadToCloudinary(coverImageLocalPath);
 
  if (!avatar) {
     throw new ApiError(400, "Avatar is required ");
  }
   const user = await User.create({
     fullName,
-    username: avatar.url,
+    avatar: avatar.url,
     coverImage: coverImage?.url || "",
     email,
     password,
